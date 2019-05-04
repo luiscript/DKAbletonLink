@@ -35,14 +35,9 @@ private:
     float link84;
     float link164;
     float link324;
-    
-    double time14;
-    double time24;
-    double time84;
-    double time164;
-    double time324;
-    
-    float beat0;
+    float bpm;
+    float oldBpm;
+    ofxDatGuiLabel * numPeersLabel;
 public:
     ofxDarkKnightAbletonLink();
     void setup();

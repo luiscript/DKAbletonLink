@@ -30,46 +30,37 @@ ofxDarkKnightAbletonLink::ofxDarkKnightAbletonLink()
 
 void ofxDarkKnightAbletonLink::setup()
 {
-    beat0 = 0;
-    time14 = time24 = time84 = time164 = time324 = 0.0;
-    link14 = link24 = link84 = link164 = link44 = 0.0;
-    //gui->getToggle("Enable")->setChecked(false);
+    link14 = link24 = link84 = link164 = link44 = link324 =0.0;
+    oldBpm = bpm = 120;
     link.enableLink();
+    
 }
 
 void ofxDarkKnightAbletonLink::update()
 {
     if (getModuleEnabled()) {
+        
         if (!link.isLinkEnabled()) {
             link.enableLink();
-            beat0 = link.getBeat();
-            //link.setBeatForce(0);
         }
-        double beat = link.getBeat() - beat0;
         
-        double t14 = beat - time14;
-        if(t14 >= 1) time14 = beat;
-        
-        double t24 = beat - time24;
-        if(t24 >= 2) time24 = beat;
-        
-        double t84 = beat - time84;
-        if(t84 >= 8) time84 = beat;
-        
-        double t164 = beat - time164;
-        if(t164 >= 16) time164 = beat;
-        
-        
+        link14 = fmod(link.getBeat(), 1) / 1;
+        link24 = fmod(link.getBeat(), 2) / 2;
         link44 = link.getPhase()/link.getQuantum();
+        link84 = fmod(link.getBeat(), 8) / 8;
+        link164 = fmod(link.getBeat(), 16) / 16;
+        link324 = fmod(link.getBeat(), 32) / 32;
         
-        link14 = t14 / 1.0;
-        link24 = t24 / 2.0;
-        //link44 =
-        link84 = t84 / 8.0;
-        link164 = t164 / 16.0;
+        numPeersLabel->setLabel(ofToString(link.getNumPeers())  + " LINK  ");
+        
+        if(oldBpm != bpm)
+        {
+            link.setBPM(bpm);
+            oldBpm = bpm;
+        }
+        
+        bpm = link.getBPM();
     } else {
-        time14 = time24 = time84 = time164 = time324 = 0.0;
-        link14 = link24 = link84 = link164 = link44 = 0.0;
         if (link.isLinkEnabled()) {
             link.disableLink();
         }
@@ -78,18 +69,21 @@ void ofxDarkKnightAbletonLink::update()
 
 void ofxDarkKnightAbletonLink::draw()
 {
-    
+
 }
 
 void ofxDarkKnightAbletonLink::addModuleParameters()
 {
-    //ofxDatGuiFolder * linkFolder = gui->addFolder("Ableton link");
+    numPeersLabel = gui->addLabel("");
+    numPeersLabel->setLabelAlignment(ofxDatGuiAlignment::RIGHT);
+    gui->addSlider("BPM", 30, 300, 120)->bind(bpm);
+    gui->addSlider("1 Beat", 0, 1)->setPrecision(4)->bind(link14);
+    gui->addSlider("2 Beats", 0, 1)->setPrecision(4)->bind(link24);
+    gui->addSlider("1 Bar", 0, 1)->setPrecision(4)->bind(link44);
+    gui->addSlider("2 Bars", 0, 1)->setPrecision(4)->bind(link84);
+    gui->addSlider("4 Bars", 0, 1)->setPrecision(4)->bind(link164);
+    gui->addSlider("8 Bars", 0, 1)->setPrecision(4)->bind(link324);
     
-    gui->addSlider("1/4", 0, 1)->setPrecision(4)->bind(link14);
-    gui->addSlider("2/4", 0, 1)->setPrecision(4)->bind(link24);
-    gui->addSlider("4/4", 0, 1)->setPrecision(4)->bind(link44);
-    gui->addSlider("8/4", 0, 1)->setPrecision(4)->bind(link84);
-    gui->addSlider("16/4", 0, 1)->setPrecision(4)->bind(link164);
 }
 
 void ofxDarkKnightAbletonLink::unMount()
