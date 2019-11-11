@@ -20,15 +20,15 @@
  SOFTWARE.
  */
 
-#include "ofxDarkKnightAbletonLink.hpp"
+#include "DKAbletonLink.hpp"
 
 
-ofxDarkKnightAbletonLink::ofxDarkKnightAbletonLink()
+DKAbletonLink::DKAbletonLink()
 {
     link.disableLink();
 }
 
-void ofxDarkKnightAbletonLink::setup()
+void DKAbletonLink::setup()
 {
     link14 = link24 = link84 = link164 = link44 = link324 =0.0;
     oldBpm = bpm = 120;
@@ -36,7 +36,7 @@ void ofxDarkKnightAbletonLink::setup()
     
 }
 
-void ofxDarkKnightAbletonLink::update()
+void DKAbletonLink::update()
 {
     if (getModuleEnabled()) {
         
@@ -67,12 +67,12 @@ void ofxDarkKnightAbletonLink::update()
     }
 }
 
-void ofxDarkKnightAbletonLink::draw()
+void DKAbletonLink::draw()
 {
 
 }
 
-void ofxDarkKnightAbletonLink::addModuleParameters()
+void DKAbletonLink::addModuleParameters()
 {
     numPeersLabel = gui->addLabel("");
     numPeersLabel->setLabelAlignment(ofxDatGuiAlignment::RIGHT);
@@ -86,7 +86,7 @@ void ofxDarkKnightAbletonLink::addModuleParameters()
     
 }
 
-void ofxDarkKnightAbletonLink::unMount()
+void DKAbletonLink::unMount()
 {
     link.disableLink();
 }

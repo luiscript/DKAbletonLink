@@ -23,10 +23,10 @@
 #ifndef ofxDarkKnightAbletonLink_hpp
 #define ofxDarkKnightAbletonLink_hpp
 
-#include "module.hpp"
+#include "DKModule.hpp"
 #include "ofxAbletonLink.h"
 
-class ofxDarkKnightAbletonLink : public Module{
+class DKAbletonLink : public DKModule{
 private:
     ofxAbletonLink link;
     float link14;
@@ -39,7 +39,7 @@ private:
     float oldBpm;
     ofxDatGuiLabel * numPeersLabel;
 public:
-    ofxDarkKnightAbletonLink();
+    DKAbletonLink();
     void setup();
     void update();
     void draw();
