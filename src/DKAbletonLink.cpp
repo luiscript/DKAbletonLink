@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2018 Luis Fernando García [http://luiscript.com]
+ Copyright (C) 2018 Luis Fernando García Pérez [http://luiscript.com]
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -75,7 +75,7 @@ void DKAbletonLink::draw()
 void DKAbletonLink::addModuleParameters()
 {
     numPeersLabel = gui->addLabel("");
-    numPeersLabel->setLabelAlignment(ofxDatGuiAlignment::RIGHT);
+    numPeersLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     gui->addSlider("BPM", 30, 300, 120)->bind(bpm);
     gui->addSlider("1 Beat", 0, 1)->setPrecision(4)->bind(link14);
     gui->addSlider("2 Beats", 0, 1)->setPrecision(4)->bind(link24);
